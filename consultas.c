@@ -19,21 +19,21 @@ typedef struct
     char nomeAtendente[100];
 } Consulta;
 
-// Vari·veis globais, vetores e controles
+// Vari√°veis globais, vetores e controles
 Paciente pacientes[100];
 Consulta consultas[1000];
 int totalPacientes = 0;
 int totalConsultas = 0;
 
-//FunÁ„o para ler textos com epaÁos
+//Fun√ß√£o para ler textos com epa√ßos
 void leiaTexto(char *mensagem, char *texto, int comprimento){
 	printf("%s: ", mensagem); //Mostra a mensagem de entrada
 	fflush(stdin); //Limpa o buffer do teclado
-    fgets(texto,comprimento,stdin); //LÍ os dados do teclado
+    fgets(texto,comprimento,stdin); //L√™ os dados do teclado
     texto[strcspn(texto, "\n")] = 0; //Exclui o \n gerado pala tecla ENTER
 }
 
-// FunÁ„o que procura um Paciente e retorna o Ìndice ou -1 se n„o encontrado
+// Fun√ß√£o que procura um Paciente e retorna o √≠ndice ou -1 se n√£o encontrado
 int procurarPaciente(char *cpf){
     int encontrado = -1, i;
     for(i = 0; i < totalPacientes; i++){
@@ -51,7 +51,6 @@ void novoPaciente(char *cpf)
     strcpy(pacientes[totalPacientes].cpf,cpf);
     leiaTexto("Nome completo", pacientes[totalPacientes].nomeCompleto, 100);
     leiaTexto("Telefone", pacientes[totalPacientes].telefone, 15);
-    pacientes[totalPacientes].telefone[strcspn(pacientes[totalPacientes].telefone, "\n")] = 0;
     totalPacientes++;
 }
 
@@ -92,7 +91,7 @@ void listarConsultas()
 // Procedimento para Listar as consultas por CPF do Paciente
 int consultasPorPaciente(char *cpf)
 {
-    printf("\n|Õndice|Nome Completo|Data|Hora|Atendente|\n|-|-|-|-|-|-|-|\n");
+    printf("\n|√çndice|Nome Completo|Data|Hora|Atendente|\n|-|-|-|-|-|-|-|\n");
     int i, total = 0;
     for (i = 0; i < totalConsultas; i++)
     {
@@ -128,7 +127,7 @@ void alterarConsulta(int indice)
     leiaTexto("Nome atendente", consultas[indice].nomeAtendente, 100);
 }
 
-// FunÁ„o principal do programa
+// Fun√ß√£o principal do programa
 int main()
 {
 	setlocale(LC_ALL,"");
@@ -139,7 +138,7 @@ int main()
         printf("1. Cadastrar Paciente\n2. Listar Pacientes\n");
         printf("3. Cadastrar Consulta\n4. Listar Consultas\n");
         printf("5. Cancelar Consulta\n6. Reagendar Consultas\n");
-        printf("7. Encerrar programa\n Escolha uma opÁ„o: ");
+        printf("7. Encerrar programa\n Escolha uma op√ß√£o: ");
         scanf("%d", &opcao);
         switch (opcao)
         {
@@ -150,7 +149,7 @@ int main()
             if(procurarPaciente(cpf) == -1){
                 novoPaciente(cpf);
             }else{
-                printf("O cpf deste paciente j· est· cadastrado.\n\n");
+                printf("O cpf deste paciente j√° est√° cadastrado.\n\n");
             }
             break;
         case 2:
@@ -159,9 +158,9 @@ int main()
         case 3:
             printf("Digite o cpf do paciente: ");
             scanf("%s",&cpf);
-            //Evitar o cadastro de consultas para pacientes n„o cadastrados
+            //Evitar o cadastro de consultas para pacientes n√£o cadastrados
             if(procurarPaciente(cpf) == -1){
-                printf("Paciente ainda n„o cadastrado.\n\n");
+                printf("Paciente ainda n√£o cadastrado.\n\n");
             }else{
                 novaConsulta(cpf);
             }
@@ -173,12 +172,12 @@ int main()
         	printf("Digite o cpf do paciente: ");
             scanf("%s",&cpf);
             if(procurarPaciente(cpf) == -1){
-                printf("Paciente n„o encontrado.\n\n");
+                printf("Paciente n√£o encontrado.\n\n");
             }else{
-            	//Listar as consultas por paciente para o atendente escolher o Ìndice a ser excluÌda do vetor
+            	//Listar as consultas por paciente para o atendente escolher o √≠ndice a ser exclu√≠da do vetor
                 if(consultasPorPaciente(cpf) > 0)
                 {
-                	printf("Digite o Ìndice da consulta a ser cancelada: ");
+                	printf("Digite o √≠ndice da consulta a ser cancelada: ");
                 	scanf("%d", &indice);
                 	cancelarConsulta(indice);
 				}
@@ -188,12 +187,12 @@ int main()
         	printf("Digite o cpf do paciente: ");
             scanf("%s",&cpf);
             if(procurarPaciente(cpf) == -1){
-                printf("Paciente n„o encontrado.\n\n");
+                printf("Paciente n√£o encontrado.\n\n");
             }else{
-            	//Listar as consultas por paciente para o atendente escolher o Ìndice a ser alterado
+            	//Listar as consultas por paciente para o atendente escolher o √≠ndice a ser alterado
                 if(consultasPorPaciente(cpf) > 0)
                 {
-                	printf("Digite o Ìndice da consulta a ser reagendada: ");
+                	printf("Digite o √≠ndice da consulta a ser reagendada: ");
                 	scanf("%d", &indice);
                 	alterarConsulta(indice);
 				}
@@ -203,7 +202,7 @@ int main()
             printf("\nBye, bye.\n");
             break;
         default:
-            printf("\nOpÁ„o inv·lida\n");
+            printf("\nOp√ß√£o inv√°lida\n");
         }
     } while (opcao != 7);
     return 0;
